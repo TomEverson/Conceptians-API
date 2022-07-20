@@ -1,15 +1,14 @@
-from asyncore import read
-from cgitb import text
-from sqlalchemy import VARCHAR, Column, Integer, String
+from unicodedata import category
+from sqlalchemy import VARCHAR, Column, Integer, String, ForeignKey
 from .database import Base
 
 
-class Blog(Base):
+class Blogs(Base):
     __tablename__ = 'blogs'
     body = Column(VARCHAR)
     id = Column(Integer,primary_key=True,index=True)
-    title = Column(String)
     category = Column(String)
+    title = Column(String)
     translate = Column(VARCHAR)
     author = Column(String)
     cowriter = Column(String)
@@ -17,12 +16,6 @@ class Blog(Base):
     translator = Column(String)
     published = Column(String)
     read = Column(String)
-    Link = Column(String)
+    photo = Column(String)
 
 
-class User(Base):
-    __tablename__ = 'users'
-    name = Column(String)
-    id = Column(Integer,primary_key=True,index=True)
-    email = Column(String)
-    image = Column(String)

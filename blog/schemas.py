@@ -3,7 +3,7 @@ from unicodedata import category
 from pydantic import BaseModel
 from sqlalchemy import true
 
-class Blog(BaseModel):
+class Blogs(BaseModel):
     title: str
     category: str
     body: str
@@ -14,17 +14,9 @@ class Blog(BaseModel):
     translator: str
     published: str
     read: str
-    Link: str
+    photo: str
 
-class ShowBlog(Blog):
+class ShowBlogs(Blogs):
     class Config():
         orm_mode = true
 
-class User(BaseModel):
-    name: str
-    email: str
-    image: str
-
-class ShowUser(User):
-    class Config():
-        orm_mode = true
