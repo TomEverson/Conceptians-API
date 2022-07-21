@@ -1,7 +1,5 @@
-from unicodedata import category
-from sqlalchemy import VARCHAR, Column, Integer, String, ForeignKey
+from sqlalchemy import VARCHAR, Column, Integer, String
 from .database import Base
-
 
 class Blogs(Base):
     __tablename__ = 'blogs'
@@ -18,4 +16,8 @@ class Blogs(Base):
     read = Column(String)
     photo = Column(String)
 
+class Emails(Base):
+    __tablename__ = 'emails'
+    email = Column(VARCHAR)
+    id = Column(Integer,primary_key=True,index=True)
 

@@ -1,5 +1,3 @@
-from csv import writer
-from unicodedata import category
 from pydantic import BaseModel
 from sqlalchemy import true
 
@@ -20,3 +18,9 @@ class ShowBlogs(Blogs):
     class Config():
         orm_mode = true
 
+class Emails(BaseModel):
+    email: str
+
+class ShowEmails(Emails):
+    class Config():
+        orm_mode = true
