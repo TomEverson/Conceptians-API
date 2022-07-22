@@ -1,9 +1,11 @@
+from unicodedata import category
 from fastapi import Depends, FastAPI
 from . import schemas,models
 from .database import SessionLocal, engine
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
 
@@ -41,6 +43,14 @@ def create(request : schemas.Blogs, db : Session = Depends(get_db),):
 def all(db: Session = Depends(get_db)):
     blogs = db.query(models.Blogs).all()
     return blogs
+
+@app.get('/blog/',response_model =List[schemas.ShowBlogs],tags=['blogs'])
+def all( category: Optional[str] = None,db: Session = Depends(get_db)):
+    blogs = db.query(models.Blogs).all()
+    if not category:
+        return blogs
+    results = db.query(models.Blogs).filter(models.Blogs.category == category).all()
+    return results
 
 @app.get('/blog/{title}', response_model =schemas.ShowBlogs,tags=['blogs'])
 def show(title,db: Session = Depends(get_db)):
