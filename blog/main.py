@@ -39,12 +39,12 @@ def create(request : schemas.Blogs, db : Session = Depends(get_db),):
     db.refresh(new_mail)
     return new_mail
 
-@app.get('/blog', response_model =List[schemas.ShowBlogs],tags=['blogs'])
+@app.get('/blog', tags=['blogs'])
 def all(db: Session = Depends(get_db)):
     blogs = db.query(models.Blogs).all()
     return blogs
 
-@app.get('/blog/',response_model =List[schemas.ShowBlogs],tags=['blogs'])
+@app.get('/blog/',tags=['blogs'])
 def all( category: Optional[str] = None,db: Session = Depends(get_db)):
     blogs = db.query(models.Blogs).all()
     if not category:
@@ -52,7 +52,7 @@ def all( category: Optional[str] = None,db: Session = Depends(get_db)):
     results = db.query(models.Blogs).filter(models.Blogs.category == category).all()
     return results
 
-@app.get('/blog/{title}', response_model =schemas.ShowBlogs,tags=['blogs'])
+@app.get('/blog/{title}',tags=['blogs'])
 def show(title,db: Session = Depends(get_db)):
     blogs = db.query(models.Blogs).filter(models.Blogs.title == title).first()
     return blogs
@@ -77,7 +77,7 @@ def create(request : schemas.Emails, db : Session = Depends(get_db)):
     db.refresh(new_email)
     return new_email
 
-@app.get('/email', response_model =List[schemas.ShowEmails],tags=['emails'])
+@app.get('/email',tags=['emails'])
 def all(db: Session = Depends(get_db)):
     blogs = db.query(models.Emails).all()
     return blogs
