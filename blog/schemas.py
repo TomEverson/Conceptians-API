@@ -7,8 +7,6 @@ class Blogs(BaseModel):
     body: str
     translate: str
     author: str
-    cowriter: str
-    editor: str
     translator: str
     published: str
     read: str

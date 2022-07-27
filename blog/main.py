@@ -1,7 +1,7 @@
 from unicodedata import category
 from fastapi import Depends, FastAPI
-from . import schemas,models
-from .database import SessionLocal, engine
+import schemas,models
+from database import SessionLocal, engine
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
@@ -33,7 +33,7 @@ def get_db():
 
 @app.post('/blog',tags=['blogs'])
 def create(request : schemas.Blogs, db : Session = Depends(get_db),):
-    new_mail = models.Blogs(title=request.title,category = request.category, body=request.body, translate=request.translate, author = request.author, editor = request.editor, translator = request.translator, published = request.published, read = request.read, photo = request.photo, cowriter = request.cowriter)
+    new_mail = models.Blogs(title=request.title,category = request.category, body=request.body, translate=request.translate, author = request.author, translator = request.translator, published = request.published, read = request.read, photo = request.photo)
     db.add(new_mail)
     db.commit()
     db.refresh(new_mail)

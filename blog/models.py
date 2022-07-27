@@ -1,5 +1,5 @@
 from sqlalchemy import VARCHAR, Column, Integer, String
-from .database import Base
+from database import Base
 
 class Blogs(Base):
     __tablename__ = 'blogs'
@@ -9,8 +9,6 @@ class Blogs(Base):
     title = Column(String)
     translate = Column(VARCHAR)
     author = Column(String)
-    cowriter = Column(String)
-    editor = Column(String)
     translator = Column(String)
     published = Column(String)
     read = Column(String)
