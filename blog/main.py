@@ -10,7 +10,10 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
+    "https://conceptians.org/",
+    "http://conceptians.org/",
+    "https://www.conceptians.org/",
+    "http://www.conceptians.org/",
 ]
 
 app.add_middleware(

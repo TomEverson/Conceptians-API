@@ -3,3 +3,5 @@ blog-env
 .vscode
 __pycache__
 blog/__pycache__
+prog_info
+state
