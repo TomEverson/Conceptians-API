@@ -4,25 +4,20 @@ import schemas,models
 from database import SessionLocal, engine
 from sqlalchemy.orm import Session
 from typing import List, Optional
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
 
-
-app = FastAPI()
-
-origins = [
-    "https://conceptians.org/",
-    "http://conceptians.org/",
-    "https://www.conceptians.org/",
-    "http://www.conceptians.org/",
+middleware = [
+    Middleware(
+        CORSMiddleware,
+        allow_origins=['*'],
+        allow_credentials=False,
+        allow_methods=['*'],
+        allow_headers=['*']
+    )
 ]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app = FastAPI(middleware=middleware)
 
 models.Base.metadata.create_all(engine)
 
@@ -32,7 +27,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
 
 @app.post('/blog',tags=['blogs'])
 def create(request : schemas.Blogs, db : Session = Depends(get_db),):
