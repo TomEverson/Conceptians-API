@@ -1,9 +1,7 @@
 blog-env
 .vscode
-.vscode
 __pycache__
-blog/__pycache__
 prog_info
 state
 venv
-blog/blog.db
+.deta

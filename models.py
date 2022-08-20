@@ -14,8 +14,10 @@ class Blogs(Base):
     read = Column(String)
     photo = Column(String)
 
-class Emails(Base):
-    __tablename__ = 'emails'
+class Users(Base):
+    __tablename__ = 'users'
+    name = Column(VARCHAR)
     email = Column(VARCHAR)
+    password = Column(VARCHAR)
     id = Column(Integer,primary_key=True,index=True)
 

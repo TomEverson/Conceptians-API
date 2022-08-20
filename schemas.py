@@ -12,5 +12,7 @@ class Blogs(BaseModel):
     read: str
     photo: str
 
-class Emails(BaseModel):
+class Users(BaseModel):
+    name: str
     email: str
+    password: str
