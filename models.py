@@ -1,5 +1,6 @@
 from sqlalchemy import VARCHAR, Column, Integer, String
 from database import Base
+from pydantic import BaseModel
 
 class Blogs(Base):
     __tablename__ = 'blogs'
@@ -21,3 +22,10 @@ class Users(Base):
     password = Column(VARCHAR)
     id = Column(Integer,primary_key=True,index=True)
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str | None = None

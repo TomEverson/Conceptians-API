@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 import database, models , schemas
 from sqlalchemy.orm import Session
-from passlib.context import CryptContext
+from hashing import Hash
 
 router = APIRouter(
     prefix="/email",
@@ -9,12 +9,10 @@ router = APIRouter(
 )
 
 get_db = database.get_db
-pwd_cxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 
 @router.post('')
 def create(request : schemas.Users, db : Session = Depends(get_db)):
-    hashed = pwd_cxt.hash(request.password)
+    hashed = Hash.bcrypt(request.password)
     new_email = models.Users(email=request.email, name=request.name, password= hashed)
     db.add(new_email)
     db.commit()
