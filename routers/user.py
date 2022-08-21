@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from hashing import Hash
 
 router = APIRouter(
-    prefix="/email",
+    prefix="/users",
     tags=["Users"]
 )
 

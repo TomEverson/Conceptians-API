@@ -5,3 +5,4 @@ prog_info
 state
 venv
 .deta
+.env

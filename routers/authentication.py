@@ -5,12 +5,11 @@ from sqlalchemy.orm import Session
 import jwttoken
 
 router = APIRouter(
+    prefix=("/login"),
     tags=["Authentication"]
 )
 
-
-
-@router.post('/login')
+@router.post('')
 def login(request: schemas.Login, db: Session = Depends(database.get_db)):
     user = db.query(models.Users).filter(models.Users.email == request.username).first()
     if not user:

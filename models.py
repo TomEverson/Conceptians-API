@@ -1,6 +1,6 @@
 from sqlalchemy import VARCHAR, Column, Integer, String
 from database import Base
-from pydantic import BaseModel
+from pydantic import BaseModel,BaseSettings
 
 class Blogs(Base):
     __tablename__ = 'blogs'
@@ -29,3 +29,11 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username: str | None = None
+
+class Settings(BaseSettings):
+    twilio_account_sid: str
+    twilio_auth_token: str
+    twilio_verify_service: str
+
+    class Config:
+        env_file = '.env'

@@ -1,3 +1,4 @@
+from codecs import Codec
 from pydantic import BaseModel
 from sqlalchemy import true
 
@@ -20,3 +21,6 @@ class Users(BaseModel):
 class Login(BaseModel):
     username: str
     password: str
+
+class Code(BaseModel):
+    code: str

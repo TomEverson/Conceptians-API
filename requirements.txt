@@ -4,3 +4,6 @@ sqlalchemy
 passlib
 bcrypt
 python-jose
+aiofiles
+twilio
+python-dotenv
