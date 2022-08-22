@@ -1,6 +1,7 @@
-from sqlalchemy import VARCHAR, Column, Integer, String
+from sqlalchemy import VARCHAR, Column, ForeignKey, Integer, String , Boolean
 from database import Base
 from pydantic import BaseModel,BaseSettings
+from sqlalchemy.orm import relationship
 
 class Blogs(Base):
     __tablename__ = 'blogs'
@@ -9,11 +10,11 @@ class Blogs(Base):
     category = Column(String)
     title = Column(String)
     translate = Column(VARCHAR)
-    author = Column(String)
-    translator = Column(String)
     published = Column(String)
     read = Column(String)
-    photo = Column(String)
+    user_id = Column(Integer, ForeignKey('users.id'))
+
+    author = relationship("Users", back_populates= "blogs")
 
 class Users(Base):
     __tablename__ = 'users'
@@ -21,6 +22,8 @@ class Users(Base):
     email = Column(VARCHAR)
     password = Column(VARCHAR)
     id = Column(Integer,primary_key=True,index=True)
+
+    blogs = relationship("Blogs", back_populates= "author")
 
 class Token(BaseModel):
     access_token: str

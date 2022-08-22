@@ -10,14 +10,14 @@ router = APIRouter(
 
 get_db = database.get_db
 
-@router.get('')
+@router.get('', response_model=List[schemas.ShowBlogs])
 def all(db: Session = Depends(get_db)):
     blogs = db.query(models.Blogs).all()
     return blogs
 
 @router.post('')
 def create(request : schemas.Blogs, db : Session = Depends(get_db),):
-    new_mail = models.Blogs(title=request.title,category = request.category, body=request.body, translate=request.translate, author = request.author, translator = request.translator, published = request.published, read = request.read, photo = request.photo)
+    new_mail = models.Blogs(title=request.title,category = request.category, body=request.body, translate=request.translate, published = request.published, read = request.read, user_id = request.user_id)
     db.add(new_mail)
     db.commit()
     db.refresh(new_mail)

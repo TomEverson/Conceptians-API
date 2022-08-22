@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends
 import database, models , schemas
 from sqlalchemy.orm import Session
@@ -19,7 +20,7 @@ def create(request : schemas.Users, db : Session = Depends(get_db)):
     db.refresh(new_email)
     return new_email
 
-@router.get('')
+@router.get('', response_model=List[schemas.ShowUsers])
 def all(db: Session = Depends(get_db)):
     blogs = db.query(models.Users).all()
     return blogs
