@@ -14,7 +14,7 @@ get_db = database.get_db
 @router.post('')
 def create(request : schemas.Users, db : Session = Depends(get_db)):
     hashed = Hash.bcrypt(request.password)
-    new_email = models.Users(email=request.email, name=request.name, password= hashed)
+    new_email = models.Users(email=request.email, name=request.name, password= hashed, avatar = request.avatar)
     db.add(new_email)
     db.commit()
     db.refresh(new_email)

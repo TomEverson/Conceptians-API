@@ -22,7 +22,8 @@ class Users(Base):
     email = Column(VARCHAR)
     password = Column(VARCHAR)
     id = Column(Integer,primary_key=True,index=True)
-
+    admin = Column(Boolean, unique=False, default=False)
+    avatar = Column(VARCHAR)
     blogs = relationship("Blogs", back_populates= "author")
 
 class Token(BaseModel):

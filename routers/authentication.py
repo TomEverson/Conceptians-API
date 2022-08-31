@@ -16,5 +16,5 @@ def login(request: schemas.Login, db: Session = Depends(database.get_db)):
         return "User doesn't exist"
     if not Hash.verify(user.password,request.password):
         return "Incorrect Password"
-    access_token = jwttoken.create_access_token(data={"sub": user.email})
+    access_token = jwttoken.create_access_token(data={"sub": user.email, "id" : user.id})
     return {"access_token": access_token, "token_type": "bearer"}
