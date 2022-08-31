@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from fastapi import APIRouter, Depends
 import database, models , schemas
 from sqlalchemy.orm import Session
@@ -22,5 +22,15 @@ def create(request : schemas.Users, db : Session = Depends(get_db)):
 
 @router.get('', response_model=List[schemas.ShowUsers])
 def all(db: Session = Depends(get_db)):
-    blogs = db.query(models.Users).all()
-    return blogs
+    users = db.query(models.Users).all()
+    return users
+
+@router.get('/info/{id}',response_model=schemas.ShowUsers)
+def show(id,db: Session = Depends(get_db)):
+    user = db.query(models.Users).filter(models.Users.id == id).first()
+    return user
+
+@router.get('/{id}',response_model=schemas.UserInfo)
+def show(id,db: Session = Depends(get_db)):
+    user = db.query(models.Users).filter(models.Users.id == id).first()
+    return user

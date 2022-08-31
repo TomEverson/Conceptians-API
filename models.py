@@ -1,3 +1,4 @@
+from email.policy import default
 from sqlalchemy import VARCHAR, Column, ForeignKey, Integer, String , Boolean
 from database import Base
 from pydantic import BaseModel,BaseSettings

@@ -31,6 +31,16 @@ class Users(BaseModel):
     avatar: str = "https://media.discordapp.net/attachments/987011683245522944/1011219957402587146/Screenshot_2022-08-22_at_4.56.57_PM.png?width=726&height=671"
     admin: bool = False
 
+class UserInfo(BaseModel):
+    name: str
+    email: str
+    avatar: str
+    admin: bool
+
+    class Config():
+        orm_mode = True
+
+
 class ShowUsers(BaseModel):
     name: str
     email:str
@@ -59,8 +69,15 @@ class ShowBlogs(BaseModel):
         orm_mode = True
 
 class Login(BaseModel):
-    username: str
+    email: str
     password: str
 
 class Code(BaseModel):
     code: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    email: str | None = None
