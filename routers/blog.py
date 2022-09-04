@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 import Oauth2
 import database, models , schemas
 from sqlalchemy.orm import Session
-from typing import List, Optional
+from typing import List, Optional 
 
 router = APIRouter(
     prefix="/blog",
@@ -11,8 +11,8 @@ router = APIRouter(
 
 get_db = database.get_db
 
-@router.get('', response_model=List[schemas.ShowBlogs])
-def all(db: Session = Depends(get_db),current_user: schemas.Users = Depends(Oauth2.get_current_user)):
+@router.get('')
+def all(db: Session = Depends(get_db)):
     blogs = db.query(models.Blogs).all()
     return blogs
 
@@ -24,7 +24,7 @@ def create(request : schemas.Blogs, db : Session = Depends(get_db),):
     db.refresh(new_mail)
     return new_mail
 
-@router.get('',)
+@router.get('')
 def all(db: Session = Depends(get_db)):
     blogs = db.query(models.Blogs).all()
     return blogs
@@ -37,7 +37,7 @@ def all( category: Optional[str] = None,db: Session = Depends(get_db)):
     results = db.query(models.Blogs).filter(models.Blogs.category == category).all()
     return results
 
-@router.get('/{title}')
+@router.get('/{title}',response_model=schemas.ShowBlogs)
 def show(title,db: Session = Depends(get_db)):
     blogs = db.query(models.Blogs).filter(models.Blogs.title == title).first()
     return blogs

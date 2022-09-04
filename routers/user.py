@@ -20,7 +20,7 @@ def create(request : schemas.Users, db : Session = Depends(get_db)):
     db.refresh(new_email)
     return new_email
 
-@router.get('', response_model=List[schemas.ShowUsers])
+@router.get('')
 def all(db: Session = Depends(get_db)):
     users = db.query(models.Users).all()
     return users

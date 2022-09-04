@@ -43,7 +43,7 @@ class UserInfo(BaseModel):
 
 class ShowUsers(BaseModel):
     name: str
-    email:str
+    avatar:str
     blogs: List[BlogsBase] = []
 
     class Config():
@@ -51,7 +51,7 @@ class ShowUsers(BaseModel):
 
 class UsersBase(BaseModel):
     name: str
-    email:str
+    avatar: str
 
     class Config():
         orm_mode = True
@@ -74,6 +74,9 @@ class Login(BaseModel):
 
 class Code(BaseModel):
     code: str
+
+class Avatar(BaseModel):
+    avatar: str
 
 class Token(BaseModel):
     access_token: str
