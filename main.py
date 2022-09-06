@@ -3,9 +3,11 @@ import models
 from database import engine
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
-from routers import authentication, blog, user , verify , avatar
+from routers import authentication, blog, user , verify , avatar , role
 
 origins = [
+    "http://www.conceptians.org",
+    "https://www.conceptians.org",
     "http://localhost",
     "http://localhost:8888",
 ]
@@ -30,3 +32,4 @@ app.include_router(authentication.router)
 app.include_router(blog.router)
 app.include_router(user.router)
 app.include_router(avatar.router)
+app.include_router(role.router)

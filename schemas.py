@@ -78,6 +78,9 @@ class Code(BaseModel):
 class Avatar(BaseModel):
     avatar: str
 
+class Admin(BaseModel):
+    admin: bool
+
 class Token(BaseModel):
     access_token: str
     token_type: str
