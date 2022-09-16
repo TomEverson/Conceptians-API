@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
 import Oauth2
 import database, models , schemas
 from sqlalchemy.orm import Session
@@ -12,8 +12,9 @@ router = APIRouter(
 get_db = database.get_db
 
 @router.get('')
-def all(db: Session = Depends(get_db)):
+def all(response: Response,db: Session = Depends(get_db)):
     blogs = db.query(models.Blogs).all()
+    response.set_cookie("lol", "lol", samesite="none", secure=True, httponly=True, max_age=5)
     return blogs
 
 @router.post('')

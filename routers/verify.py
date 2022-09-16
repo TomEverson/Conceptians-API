@@ -25,8 +25,9 @@ async def handle_form(name: str = Form(),email: str = Form(), password: str = Fo
                                 status_code=status.HTTP_303_SEE_OTHER)
     response.set_cookie('email', email)
     hashed = Hash.bcrypt(password)
+    rabbit = "https://cdn.discordapp.com/attachments/987011683245522944/1011219957402587146/Screenshot_2022-08-22_at_4.56.57_PM.png"
     global new_email
-    new_email = models.Users(email=email, name=name, password= hashed)
+    new_email = models.Users(email=email, name=name, password= hashed, avatar = rabbit)
     return response
 
 @router.get('/verify')

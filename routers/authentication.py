@@ -14,11 +14,12 @@ router = APIRouter(
 )
 
 @router.post('')
-def login(request: schemas.Login, db: Session = Depends(database.get_db)):
+def login(response : Response,request: schemas.Login, db: Session = Depends(database.get_db)):
     user = db.query(models.Users).filter(models.Users.email == request.email).first()
     if not user:
         return "User doesn't exist"
     if not Hash.verify(user.password,request.password):
         return "Incorrect Password"
     access_token = jwttoken.create_access_token(data={"sub": user.email, "id" : user.id})
+    response.set_cookie("token", access_token, httponly=True, secure=True, max_age=86400, samesite="none")
     return {"status": "Success", "token": access_token}
