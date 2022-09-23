@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends
 import database, models , schemas
 from sqlalchemy.orm import Session
 from hashing import Hash
+import Oauth2
 
 router = APIRouter(
     prefix="/users",
@@ -25,9 +26,9 @@ def all(db: Session = Depends(get_db)):
     users = db.query(models.Users).all()
     return users
 
-@router.get('/info/{id}',response_model=schemas.ShowUsers)
-def show(id,db: Session = Depends(get_db)):
-    user = db.query(models.Users).filter(models.Users.id == id).first()
+@router.get('/info',response_model=schemas.ShowUsers)
+def show(db: Session = Depends(get_db),current_user: schemas.Users = Depends(Oauth2.get_current_user)):
+    user = db.query(models.Users).filter(models.Users.id == current_user).first()
     return user
 
 @router.get('/{id}',response_model=schemas.UserInfo)

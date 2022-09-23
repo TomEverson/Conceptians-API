@@ -1,8 +1,5 @@
-import re
-from tokenize import Token
-from fastapi import APIRouter, Depends, Response
-from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy import true
+from fastapi import APIRouter, Depends, Response , Request
+from urllib3 import Retry
 import schemas, database, models 
 from hashing import Hash
 from sqlalchemy.orm import Session
@@ -20,6 +17,22 @@ def login(response : Response,request: schemas.Login, db: Session = Depends(data
         return "User doesn't exist"
     if not Hash.verify(user.password,request.password):
         return "Incorrect Password"
+    refresh_token = jwttoken.create_refresh_token(data={"email": user.email, "id" : user.id})
+    response.set_cookie("refresh_token", refresh_token)
     access_token = jwttoken.create_access_token(data={"sub": user.email, "id" : user.id})
-    response.set_cookie("token", access_token, httponly=True, secure=True, max_age=86400, samesite="none")
     return {"status": "Success", "token": access_token}
+
+
+@router.get('/refresh')
+def refresh(request: Request,db: Session = Depends(database.get_db)):
+    refresh_data = request.cookies.get('refresh_token')
+    verified = jwttoken.verify_refresh_token(refresh_data)
+    user = db.query(models.Users).filter(models.Users.email == verified).first()
+    if not user:
+        return "Error"
+    access_token = jwttoken.create_access_token(data={"sub": user.email, "id" : user.id})
+    return {"status": "Success", "token": access_token}
+
+@router.post('/lol')
+def login(response : Response,request: schemas.Login):
+    response.set_cookie("refresh_token", "lol")

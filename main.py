@@ -1,29 +1,26 @@
 from fastapi import FastAPI
 import models
 from database import engine
-from starlette.middleware import Middleware
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from routers import authentication, blog, user , verify , avatar , role
+
+
+app = FastAPI()
 
 origins = [
     "http://www.conceptians.org",
     "https://www.conceptians.org",
     "http://localhost",
-    "http://localhost:8888",
+    "http://localhost:3000",
 ]
 
-
-middleware = [
-    Middleware(
-        CORSMiddleware,
-        allow_origins=origins,
-        allow_credentials=True,
-        allow_methods=['*'],
-        allow_headers=['*']
-    )
-]
-
-app = FastAPI(middleware=middleware)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 models.Base.metadata.create_all(engine)
 

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response , Request
 import Oauth2
 import database, models , schemas
 from sqlalchemy.orm import Session
@@ -11,15 +11,9 @@ router = APIRouter(
 
 get_db = database.get_db
 
-@router.get('')
-def all(response: Response,db: Session = Depends(get_db)):
-    blogs = db.query(models.Blogs).all()
-    response.set_cookie("lol", "lol", samesite="none", secure=True, httponly=True, max_age=5)
-    return blogs
-
 @router.post('')
-def create(request : schemas.Blogs, db : Session = Depends(get_db),):
-    new_mail = models.Blogs(title=request.title,category = request.category, body=request.body, translate=request.translate, published = request.published, read = request.read, user_id = request.user_id)
+def create(request : schemas.Blogs, db : Session = Depends(get_db),current_user: schemas.Users = Depends(Oauth2.get_current_user)):
+    new_mail = models.Blogs(title=request.title,category = request.category, body=request.body, translate=request.translate, published = request.published, read = request.read, user_id = current_user)
     db.add(new_mail)
     db.commit()
     db.refresh(new_mail)
