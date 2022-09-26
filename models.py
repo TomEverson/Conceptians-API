@@ -1,4 +1,5 @@
 from email.policy import default
+from typing import Optional
 from sqlalchemy import VARCHAR, Column, ForeignKey, Integer, String , Boolean
 from database import Base
 from pydantic import BaseModel,BaseSettings
@@ -33,7 +34,7 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    username: str = None
+    username: Optional[None] = None
 
 class Settings(BaseSettings):
     twilio_account_sid: str
