@@ -94,5 +94,5 @@ class Token(BaseModel):
     access_token: str
 
 class TokenData(BaseModel):
-    email: str | None = None
+    email: str = None
     expires: Optional[datetime]
