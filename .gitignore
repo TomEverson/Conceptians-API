@@ -6,4 +6,3 @@ state
 venv
 .deta
 .env
-fly.toml
