@@ -33,7 +33,7 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    username: str | None = None
+    username: str = None
 
 class Settings(BaseSettings):
     twilio_account_sid: str
