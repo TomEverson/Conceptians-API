@@ -24,7 +24,7 @@ async def handle_form(request: schemas.Verify):
     response = RedirectResponse('verification/verify',
                                 status_code=status.HTTP_303_SEE_OTHER)
     hashed = Hash.bcrypt(request.password)
-    avatar = 'https://media.discordapp.net/attachments/987011683245522944/1011219957402587146/Screenshot_2022-08-22_at_4.56.57_PM.png?width=726&height=671'
+    avatar = "https://firebasestorage.googleapis.com/v0/b/conceptians-ce285.appspot.com/o/images%2FScreenshot_2022-08-22_at_4.56.57_PM.png?alt=media&token=385cfcb4-ab07-4eed-b5c1-d89040f44d32"
     global new_email
     new_email = models.Users(email=request.email, name=request.name, password= hashed, avatar=avatar)
     return response

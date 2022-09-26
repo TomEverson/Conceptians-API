@@ -13,7 +13,7 @@ get_db = database.get_db
 
 @router.post('')
 def create(request : schemas.Blogs, db : Session = Depends(get_db),current_user: schemas.Users = Depends(Oauth2.get_current_user)):
-    new_mail = models.Blogs(title=request.title,category = request.category, body=request.body, translate=request.translate, published = request.published, read = request.read, user_id = current_user)
+    new_mail = models.Blogs(title=request.title,category = request.category, body=request.body, image=request.image, published = request.published, read = request.read, user_id = current_user)
     db.add(new_mail)
     db.commit()
     db.refresh(new_mail)

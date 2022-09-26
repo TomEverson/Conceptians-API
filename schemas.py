@@ -6,9 +6,9 @@ class Blogs(BaseModel):
     title: str
     category: str
     body: str
-    translate: str
+    image: str
     published: str
-    read: str
+    read: int
 
     class Config():
         orm_mode = True
@@ -17,9 +17,9 @@ class BlogsBase(BaseModel):
     title: str
     category: str
     body: str
-    translate: str
+    image: str
     published: str
-    read: str
+    read: int
 
     class Config():
         orm_mode = True
@@ -29,13 +29,13 @@ class Users(BaseModel):
     email: str
     password: str
     avatar: str
-    admin: bool = False
+    banned: bool = False
 
 class UserInfo(BaseModel):
     name: str
     email: str
     avatar: str
-    admin: bool
+    banned: bool
 
     class Config():
         orm_mode = True
@@ -60,9 +60,9 @@ class ShowBlogs(BaseModel):
     title: str
     category: str
     body: str
-    translate: str
+    image: str
     published: str
-    read: str
+    read: int
     author: UsersBase
 
     class Config():

@@ -10,9 +10,9 @@ class Blogs(Base):
     id = Column(Integer,primary_key=True,index=True)
     category = Column(String)
     title = Column(String)
-    translate = Column(VARCHAR)
+    image = Column(String)
     published = Column(String)
-    read = Column(String)
+    read = Column(Integer)
     user_id = Column(Integer, ForeignKey('users.id'))
 
     author = relationship("Users", back_populates= "blogs")
@@ -23,7 +23,7 @@ class Users(Base):
     email = Column(VARCHAR)
     password = Column(VARCHAR)
     id = Column(Integer,primary_key=True,index=True)
-    admin = Column(Boolean, unique=False, default=False)
+    banned = Column(Boolean, unique=False, default=False)
     avatar = Column(VARCHAR)
     blogs = relationship("Blogs", back_populates= "author")
 
