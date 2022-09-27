@@ -18,7 +18,7 @@ def login(response : Response,request: schemas.Login, db: Session = Depends(data
     if not Hash.verify(user.password,request.password):
         return "Password Error"
     refresh_token = jwttoken.create_refresh_token(data={"email": user.email, "id" : user.id})
-    response.set_cookie("refresh_token", refresh_token)
+    response.set_cookie("refresh_token", refresh_token, httponly=True, secure=True, samesite="none", max_age=604800)
     access_token = jwttoken.create_access_token(data={"sub": user.email, "id" : user.id})
     return {"status": "Success", "token": access_token}
 
